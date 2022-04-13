@@ -32,7 +32,7 @@ const EmployeesRedux = () => {
               employees.length > 0 && employees.map(employee => {
                 return (
                   <li key={employee.id} className="list-group-item">
-                    <input onChange={() => selectedEmployee(employee.id)} type="checkbox" className="form-check-input me-2"/>
+                    <input checked={employee.isSelected} onChange={() => selectedEmployee(employee.id)} type="checkbox" className="form-check-input me-2"/>
                     {employee.name}
                   </li>
                 )
