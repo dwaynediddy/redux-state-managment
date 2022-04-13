@@ -10,7 +10,7 @@ const employeeSlice = createSlice({
     initialState: initialState,
     reducers : {
         updateSelected: function(state, action) {
-            state.employees = EmployeeService.state.employees.map(employee => {
+            state.employees = state.employees.map(employee => {
             if (employee.id === action.payload) {
                 return {
                   ...employee,
@@ -24,5 +24,5 @@ const employeeSlice = createSlice({
     }
 })
 
-export const {} = employeeSlice.actions
+export const {updateSelected} = employeeSlice.actions
 export default employeeSlice.reducer
