@@ -69,8 +69,7 @@ const UserList = () => {
                       <td>{user.website}</td>
                       <td>{user.company.name}</td>
                       <td>{user.address.city}</td>
-                    </tr>
-                                         
+                    </tr>                      
                   )                                            
                 })}
               </tbody>
