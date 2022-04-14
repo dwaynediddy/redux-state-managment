@@ -1,34 +1,20 @@
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import axios from 'axios'
-
-const dataUrl = `https://jsonplaceholder.typicode.com/users`
+import {getUsers} from './redux/features/users-list.features'
 
 const UserListRedux = () => {
-  const [state, setState] = useState({
-    loading: false,
-    users: [],
-    errorMessage: ''
+  const dispatch = useDispatch()
+
+  const userState = useSelector((store) => {
+    return store['users']
   })
 
-  useEffect(async() => {
-    try {
-      setState({...state, loading: true})
-      const response = await axios.get(dataUrl)
-      setState({
-        ...state,
-        users: response.data,
-        loading: false
-      })
-    } catch(err) {
-      setState({
-        ...state,
-        errorMessage: err,
-        loading: false
-      })
-    }
-  },[])
+  useEffect(async () => {
+    dispatch(getUsers())
+  },[dispatch])
 
-  const {loading, errorMessage, users} = state
+  const {loading, errorMessage, users} = userState
 
   return (
     <div className="container md-3">
@@ -44,7 +30,7 @@ const UserListRedux = () => {
             loading && <h2 className="fw-bold">Loading...</h2>
           }
           {
-            !loading && errorMessage.length > 0 && <h3 className="text-danger">{errorMessage}</h3>
+            !loading && errorMessage && <h3 className="text-danger">{errorMessage}</h3>
           }
           {
             !loading && users.length > 0 &&
@@ -69,8 +55,7 @@ const UserListRedux = () => {
                       <td>{user.website}</td>
                       <td>{user.company.name}</td>
                       <td>{user.address.city}</td>
-                    </tr>
-                                         
+                    </tr>                   
                   )                                            
                 })}
               </tbody>
